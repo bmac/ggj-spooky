@@ -1,5 +1,24 @@
 default character = ""
 default game_room_name = "foo"
+define url = 'http://18.218.226.41/game/'
+
+init python:
+    import requests
+    import json
+
+    def poll():
+        requests.get(url+game_room_name)
+
+    def push():
+        pass
+
+    def create_room(char, room):
+        data = {'character' : char,
+                'room' : room}
+        requests.post(url+room, data=json.dumps(data))
+
+    def request_room():
+        pass
 
 label lobby:
     call screen lobby
@@ -36,6 +55,7 @@ label name_game:
     jump wait_to_start
 
 label wait_to_start:
+    $ create_room(char=character, room=game_room_name)
     call screen wait_to_start
 
 screen wait_to_start():

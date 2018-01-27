@@ -4,6 +4,7 @@ init -1 python:
             self.name = name
             self.objects = objects
             self._sort()
+            self.background = "images/"+name+"/bg.png"
         def add(self, o, sort=True):
             self.objects.append(o)
             if sort:
@@ -31,10 +32,12 @@ init -1 python:
             return False
     # Should this be combined with an inventory object?
     class RoomObject(object):
-        def __init__(self, name, description=None, image=None):
+        def __init__(self, name, description=None, image=None, anchor=(0.5, 0.5), pos=(0.5, 0.5)):
             self.name = name
             self.description = description if description != None else name.replace('_', ' ')
             self.image = image if image else 'images/' + "forest/" + self.name + ".png"
+            self.anchor = anchor
+            self.pos = pos
 
     def get_image(item_name, room_name):
         store_name = '_'.join([room_name, item_name])
@@ -44,25 +47,25 @@ init -1 python:
             img = renpy.displayable(img_path)
             setattr(store, store_name, img)
         return img
-label draw_room:
-    python:
-        held = None
-        renpy.scene()
-        img = get_image('bg', room.name)
-        renpy.show('bg '+'_'.join([room.name, 'bg']), what=img)
-        for i in room.objects:
-            img_name = i.image
-            if img_name:
-                img_name = i.image
-                renpy.show(img_name, at_list=[truecenter])
-            else:
-                img_name = '_'.join([room.name, i.name])
-                img = get_image(i.name, room.name)
-                renpy.show(img_name, what=img, at_list=[truecenter])
-    return
+# label draw_room:
+#     python:
+#         held = None
+#         renpy.scene()
+#         img = get_image('bg', room.name)
+#         renpy.show('bg '+'_'.join([room.name, 'bg']), what=img)
+#         for i in room.objects:
+#             img_name = i.image
+#             if img_name:
+#                 img_name = i.image
+#                 renpy.show(img_name, at_list=[truecenter])
+#             else:
+#                 img_name = '_'.join([room.name, i.name])
+#                 img = get_image(i.name, room.name)
+#                 renpy.show(img_name, what=img, at_list=[truecenter])
+#     return
 
 label room_loop:
-    call draw_room from _call_draw_room
-    call screen room_screen(room, show_inventory=True)
+    # call draw_room from _call_draw_room
+    call screen room_screen(interactable=True)
     with dissolve
     return
