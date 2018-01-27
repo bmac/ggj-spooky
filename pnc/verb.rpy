@@ -109,3 +109,4 @@ screen room_screen(room, show_inventory=True):
     # Should I tag this with an id for transfering state between scenes?
     if show_inventory is True:
         use inventory
+    use hud
