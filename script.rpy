@@ -1,5 +1,5 @@
 define p = Character(None, what_color="#FFF")
-define dog = Character("dog", what_color="#a46579")
+# define dog = Character("dog", what_color="#a46579")
 
 ### Styles
 style say_dialogue:
@@ -24,71 +24,23 @@ style choice_button_text:
     ###
 
 init python:
-    def update_dog_avatar(st, at):
-        return (LiveComposite(
-            (324, 446),
-            (0, 0), "images/dog/body.png",
-            (0, 0), "images/dog/"+dog_mood+".png"), None)
-
-image dog = DynamicDisplayable(update_dog_avatar)
-image bg yard = "images/yard/bg.png"
-image bg shed = "images/shed/bg.png"
-image bg bed_room = "images/bed_room/bg.png"
-image sad_skeleton = "images/shed/skeleton_sad.png"
-image black = "#000"
-image book_1 = im.Scale("images/book_1.png", 300, 232)
-image book_2 = im.Flip(im.Scale("images/book_2.png", 300, 232), horizontal=True)
-image book_3 = im.Scale("images/book_3.png", 300, 259)
-
+    pass
 init:
     $ config.mouse = { 'default' : [ ('images/cursor.png', 20, 20)] }
     $ config.keymap['game_menu'] = [ 'K_ESCAPE', 'K_MENU']
     default preferences.text_cps = 80
-    default dog_mood = "sad"
-    default dog_greeted = False
-    default dog_played = False
-    default dog_fed = False
-    default bone_taken = False
-    default dog_food_taken = False
 
-    default yard_room = Room("yard", [{"name": "house"},
-                                      {"name": "door"},
-                                      {"name": "food_bowl"},
-                                      {"name": "dog",
-                                       "image": "dog"},
-                                      {"name": "backyard"}])
-    default shed_room = Room("shed", [{"name": "shelves"},
-                                      {"name": "leave"},
-                                      {"name": "skeleton"}])
-    default bed_room_room = Room("bed_room", [{"name": "mirror"},
-                                              {"name": "window"},
-                                              {"name": "bed"},
-                                              {"name": "table"},
-                                              {"name": "tomes",
-                                               "description": "books"},
-                                              {"name": "lamp"},
-                                              {"name": "leave",
-                                               "description": "to the front yard"}])
-transform bark:
-    linear 0.2 yoffset -50
-    linear 0.2 yoffset 0
-    pause 0.1
-    linear 0.2 yoffset -50
-    linear 0.2 yoffset 0
-label yard_scene:
-    $ room = yard_room
-    jump room_loop
-label shed_scene:
-    $ room = shed_room
-    jump room_loop
-label bed_room_scene:
-    $ room = bed_room_room
+    default forest_room = Room("forest", [{"name": "axe"},
+                                          {"name": "letter"}])
+
+label forest_scene:
+    $ room = forest_room
     jump room_loop
 
 label start:
     $ dialogue_box["dog"] = {'x':0.35, 'y':180}
     $ inventory = Inventory()
-    # jump intro
+    jump forest_scene
     jump lobby
 
 label intro:
