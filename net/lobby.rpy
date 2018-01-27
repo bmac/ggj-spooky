@@ -11,6 +11,9 @@ init python:
     def process_data(data):
         if data.get('axe_taken', None):
             pass
+        if data.get('secondary_character', None):
+            global started
+            started = True
 
     def poll():
         global latest_poll
@@ -34,6 +37,13 @@ init python:
         if data.get('secondary_character', None):
             return False
         else:
+            global character
+            if data.get('character', None) == 'ghost':
+                character = 'human'
+            elif data.get('character', None) == 'human':
+                character = 'ghost'
+            data = {'secondary_character' : character}
+            requests.post(url+room, data=json.dumps(data))
             return True
 
 
@@ -91,13 +101,15 @@ label join_game:
     $ game_room_name = game_room_name.strip()
     $ connected = request_room(game_room_name)
     if not connected:
-        "You couldn't connect."
+        jump not_connected
     else:
-        "You connected."
+        jump connected
 
 label not_connected:
     "Connection failed."
+    return
 
 label connected:
     "Conneciton sucessful you are now ready to play the game."
+    "You are playing as the [character]."
     jump forest_scene
