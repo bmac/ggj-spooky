@@ -1,0 +1,7 @@
+saves/persistent
+.DS_Store
+cache/
+database_setup.sh
+game.db
+*.rpyc
+saves
