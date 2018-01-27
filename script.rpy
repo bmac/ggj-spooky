@@ -88,7 +88,9 @@ label bed_room_scene:
 label start:
     $ dialogue_box["dog"] = {'x':0.35, 'y':180}
     $ inventory = Inventory()
-    jump intro
+    # jump intro
+    jump lobby
+
 label intro:
     scene bg yard
     show dog at truecenter

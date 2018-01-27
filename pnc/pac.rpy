@@ -7,5 +7,11 @@ default point_and_click_config = {
         }
     }
 
+define frame = Frame('gui/frame.png', 5, 5)
+
 init python:
+    import requests
     config.keymap['game_menu'] = [ 'K_ESCAPE', 'K_MENU']
+
+    def poll():
+        pass
