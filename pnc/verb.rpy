@@ -80,30 +80,3 @@ label start_action:
     show screen room_screen(interactable=False)
     $ renpy.call(selected_response_label)
     $ renpy.jump('_'.join([room.name, 'scene']))
-
-screen room_screen(interactable=True):
-    add room.background
-    for i in room.objects:
-        imagebutton:
-            idle i.image
-            focus_mask True
-            anchor i.anchor
-            pos i.pos
-            if interactable:
-                action [SetVariable('action', 'look'),
-                        SetVariable('target', i.name),
-                        Hide('mouseover'),
-                        Hide('inventory'),
-                        Jump('start_action')]
-                alternate [SetVariable('action', 'interact'),
-                           SetVariable('target', i.name),
-                           Hide('mouseover'),
-                           Hide('inventory'),
-                           Jump('start_action')]
-                hovered [SetVariable('description', i.description),
-                         Show('mouseover')]
-                unhovered [Hide('mouseover')]
-    # Should I tag this with an id for transfering state between scenes?
-    if interactable:
-        use inventory
-    use hud

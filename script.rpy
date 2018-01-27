@@ -43,8 +43,8 @@ label start:
     # $ dialogue_box["dog"] = {'x':0.35, 'y':180}
     $ inventory = Inventory()
     $ hud = HUD()
-    jump forest_scene
-    # jump lobby
+    # jump forest_scene
+    jump lobby
 
 label intro:
     scene bg yard
@@ -71,7 +71,10 @@ label intro:
     jump yard_scene
 
 label forest_axe_look:
-    "Hmm, a rust axe...wait is that rust or BLOOD?!"
+    if character == 'human':
+        "Hmm, a rust axe...wait is that rust or BLOOD?!"
+    else:
+        "I am a spooky ghost and that is a spooky axe."x
     return
 
 label forest_axe_interact:
@@ -79,11 +82,15 @@ label forest_axe_interact:
     return
 
 label forest_letter_look:
-    "\"Dear Jane,\""
-    "\"I think Phil is going to kill me with an axe.\""
-    "\"WEIRD, right?\""
-    "\"Love, John.\""
-    "Huh, you might have been onto something, John..."
+    if character == 'human':
+        "\"Dear Jane,\""
+        "\"I think Phil is going to kill me with an axe.\""
+        "\"WEIRD, right?\""
+        "\"Love, John.\""
+        "Huh, you might have been onto something, John..."
+    else:
+        "An old letter. I cannot read this because it's folded up and I am incorporeal and unable to unfold it."
+        "Darn."
     return
 
 label forest_letter_interact:
