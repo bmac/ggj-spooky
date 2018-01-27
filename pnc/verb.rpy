@@ -58,7 +58,7 @@ label start_action:
             action = 'use'
         # First check for a response specified in the data.
         obj = room.get(target)
-        data_response_label = obj.get(action)
+        data_response_label = getattr(obj, 'action', None)
         selected_response_label = ''
         if data_response_label:
             selected_response_label = data_response_label
@@ -83,9 +83,9 @@ label start_action:
 screen room_screen(room, show_inventory=True):
     $ img_dir = 'images/' + room.name + '/'
     for i in room.objects:
-        $ name = i['name']
-        $ desc = i.get('description') or name.replace('_', ' ')
-        $ img = i.get('image') or img_dir+name+'.png'
+        $ name = i.name
+        $ desc = i.description
+        $ img = i.image
         $ img_is_null = isinstance(img, Null)
         imagebutton:
             idle img

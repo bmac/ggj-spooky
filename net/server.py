@@ -11,11 +11,11 @@ class GameAPI(views.MethodView):
     def get(self, session):
         c = conn.cursor()
         c.execute('SELECT * FROM game_state WHERE session=?', (session,))
-        (session, state) = c.fetchone()
-        # return json.jsonify(dir(self))
-        #json.parse(state)
-
-        return json.jsonify(json.loads(state))
+        result = c.fetchone()
+        if result:
+            return json.jsonify(json.loads(state))
+        else:
+            return json.jsonify({})
 
     def post(self, session):
         state = request.get_data()
