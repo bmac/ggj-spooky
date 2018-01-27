@@ -10,19 +10,19 @@ init -1 python:
                 self._sort()
         def remove(self, o):
             if isinstance(o, basestring):
-                self.objects = [i for i in self.objects if i['name'] != o]
+                self.objects = [i for i in self.objects if i.name != o]
         def contains(self, o):
             if isinstance(o, basestring):
-                obj = [i for i in self.objects if i['name'] == o]
+                obj = [i for i in self.objects if i.name == o]
                 if obj: return True
                 else: return False
         def get(self, o):
             if isinstance(o, basestring):
-                obj = [i for i in self.objects if i['name'] == o]
+                obj = [i for i in self.objects if i.name == o]
                 if obj: return obj[0]
                 else: return None
         def _sort(self):
-            self.objects.sort(key=lambda x: x.get('layer', 0), reverse=True)
+            self.objects.sort(key=lambda x: getattr(x, 'layer', 0), reverse=True)
         def __eq__(self, o):
             if isinstance(o, Room):
                 if self.name == o.name: return True
@@ -31,8 +31,11 @@ init -1 python:
             return False
     # Should this be combined with an inventory object?
     class RoomObject(object):
-        def __init__(self):
-            pass
+        def __init__(self, name, description=None, image=None):
+            self.name = name
+            self.description = description if description != None else name.replace('_', ' ')
+            self.image = image if image else 'images/' + "forest/" + self.name + ".png"
+
     def get_image(item_name, room_name):
         store_name = '_'.join([room_name, item_name])
         img = getattr(store, store_name, None)
@@ -48,13 +51,13 @@ label draw_room:
         img = get_image('bg', room.name)
         renpy.show('bg '+'_'.join([room.name, 'bg']), what=img)
         for i in room.objects:
-            img_name = i.get('image', None)
+            img_name = i.image
             if img_name:
-                img_name = i['image']
+                img_name = i.image
                 renpy.show(img_name, at_list=[truecenter])
             else:
-                img_name = '_'.join([room.name, i['name']])
-                img = get_image(i['name'], room.name)
+                img_name = '_'.join([room.name, i.name])
+                img = get_image(i.name, room.name)
                 renpy.show(img_name, what=img, at_list=[truecenter])
     return
 

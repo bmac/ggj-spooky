@@ -30,8 +30,8 @@ init:
     $ config.keymap['game_menu'] = [ 'K_ESCAPE', 'K_MENU']
     default preferences.text_cps = 80
 
-    default forest_room = Room("forest", [{"name": "axe"},
-                                          {"name": "letter"}])
+    default forest_room = Room("forest", [RoomObject("axe"),
+                                          RoomObject("letter")])
 
 label forest_scene:
     $ room = forest_room
