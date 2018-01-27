@@ -34,7 +34,7 @@ init python:
             else:
                 p(refuse_text)
                 return False
-        def drop(self, item_name):
+        def remove(self, item_name):
             self.items = [i for i in self.items if i.name != item_name]
         def contains(self, item_name):
                 return item_name in [i.name for i in self.items]
