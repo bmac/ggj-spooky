@@ -106,3 +106,4 @@ screen room_screen(interactable=True):
     # Should I tag this with an id for transfering state between scenes?
     if interactable:
         use inventory
+    use hud

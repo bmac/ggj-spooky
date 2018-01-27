@@ -43,7 +43,9 @@ label start:
     # $ dialogue_box["dog"] = {'x':0.35, 'y':180}
     $ inventory = Inventory()
     # jump forest_scene
-    jump lobby
+    $ hud = HUD()
+    jump forest_scene
+    # jump lobby
 
 label intro:
     scene bg yard
