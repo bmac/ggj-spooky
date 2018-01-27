@@ -24,7 +24,8 @@ style choice_button_text:
     ###
 
 init python:
-    pass
+    import requests
+
 init:
     $ config.mouse = { 'default' : [ ('images/cursor.png', 20, 20)] }
     $ config.keymap['game_menu'] = [ 'K_ESCAPE', 'K_MENU']
