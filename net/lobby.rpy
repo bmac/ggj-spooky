@@ -27,6 +27,11 @@ init python:
         data = {'axe_taken' : True}
         requests.post(url+game_room_name, data=json.dumps(data))
 
+    def update_game(**kwargs):
+        global latest_poll
+        latest_poll.update(kwargs)
+        requests.post(url+game_room_name, data=json.dumps(latest_poll))
+
     def create_room(char, room):
         data = {'character' : char,
                 'room' : room}
