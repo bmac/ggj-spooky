@@ -13,6 +13,7 @@ class GameAPI(views.MethodView):
         c.execute('SELECT * FROM game_state WHERE session=?', (session,))
         result = c.fetchone()
         if result:
+            (_, state) = result
             return json.jsonify(json.loads(state))
         else:
             return json.jsonify({})
