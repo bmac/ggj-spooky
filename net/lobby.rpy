@@ -2,6 +2,8 @@ default character = ""
 default game_room_name = "foo"
 define url = 'http://18.218.226.41/game/'
 default latest_poll = {}
+default started = False;
+
 init python:
     import requests
     import json
