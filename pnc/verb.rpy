@@ -77,36 +77,32 @@ label start_action:
                 # General default response
                 selected_response_label = 'default_' + action
 
+    show screen room_screen(interactable=False)
     $ renpy.call(selected_response_label)
     $ renpy.jump('_'.join([room.name, 'scene']))
 
-screen room_screen(room, show_inventory=True):
-    $ img_dir = 'images/' + room.name + '/'
+screen room_screen(interactable=True):
+    add room.background
     for i in room.objects:
-        $ name = i.name
-        $ desc = i.description
-        $ img = i.image
-        $ img_is_null = isinstance(img, Null)
         imagebutton:
-            idle img
-            if not img_is_null:
-                focus_mask True
-            anchor (0.5, 0.5)
-            pos (0.5, 0.5)
-            action [SetVariable('action', 'look'),
-                    SetVariable('target', name),
-                    Hide('mouseover'),
-                    Hide('inventory'),
-                    Jump('start_action')]
-            alternate [SetVariable('action', 'interact'),
-                       SetVariable('target', name),
-                       Hide('mouseover'),
-                       Hide('inventory'),
-                       Jump('start_action')]
-            hovered [SetVariable('description', desc),
-                     Show('mouseover')]
-            unhovered [Hide('mouseover')]
+            idle i.image
+            focus_mask True
+            anchor i.anchor
+            pos i.pos
+            if interactable:
+                action [SetVariable('action', 'look'),
+                        SetVariable('target', i.name),
+                        Hide('mouseover'),
+                        Hide('inventory'),
+                        Jump('start_action')]
+                alternate [SetVariable('action', 'interact'),
+                           SetVariable('target', i.name),
+                           Hide('mouseover'),
+                           Hide('inventory'),
+                           Jump('start_action')]
+                hovered [SetVariable('description', i.description),
+                         Show('mouseover')]
+                unhovered [Hide('mouseover')]
     # Should I tag this with an id for transfering state between scenes?
-    if show_inventory is True:
+    if interactable:
         use inventory
-    use hud
