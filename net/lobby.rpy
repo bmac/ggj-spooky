@@ -30,8 +30,17 @@ init python:
         requests.post(url+game_room_name, data=json.dumps(latest_poll))
 
     def create_room(char, room):
-        data = {'character' : char,
-                'room' : room}
+        data = {
+            'energy': 3,
+            'character' : char,
+            'secondary_character' : '',
+            'is_daytime' : False,
+            'day': 0,
+            'ghost_position': '',
+            'human_position': '',
+            'seen_bad_ghost': False,
+            'room' : room,
+            }
         requests.post(url+room, data=json.dumps(data))
 
     def request_room(room):
