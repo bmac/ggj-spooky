@@ -1,4 +1,6 @@
 label world_map:
+    if not renpy.music.get_playing('music'):
+        play music "music/night_theme.mp3"
     call screen map_screen
 
 
