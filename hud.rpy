@@ -12,17 +12,17 @@ init python:
             self.maxActions = 6
 
         @property
-        def actions():
+        def actions(self):
             global latest_poll
             return latest_poll.get('energy', 0)
 
         @property
-        def is_daytime():
+        def is_daytime(self):
             global latest_poll
             return latest_poll.get('is_daytime', True)
 
         @property
-        def day():
+        def day(self):
             global latest_poll
             return latest_poll.get('day', 0)
 
