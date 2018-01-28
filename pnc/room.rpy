@@ -63,17 +63,11 @@ screen room_screen(interactable=True):
             anchor i.anchor
             pos i.pos
             if interactable:
-                action [SetVariable('action', 'look'),
+                action [SetVariable('action', 'interact'),
                         SetVariable('target', i.name),
                         Hide('mouseover'),
                         Hide('inventory'),
                         Jump('start_action')]
-                if character == 'human':
-                    alternate [SetVariable('action', 'interact'),
-                               SetVariable('target', i.name),
-                               Hide('mouseover'),
-                               Hide('inventory'),
-                               Jump('start_action')]
         if interactable:
             mousearea:
                 focus_mask i.image
