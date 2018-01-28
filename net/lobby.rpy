@@ -35,6 +35,7 @@ init python:
         requests.post(url+room, data=json.dumps(data))
 
     def request_room(room):
+        poll()
         data = requests.get(url+game_room_name).json()
         if data.get('secondary_character', None):
             return False
@@ -44,7 +45,6 @@ init python:
                 character = 'human'
             elif data.get('character', None) == 'human':
                 character = 'ghost'
-            data = {'secondary_character' : character}
             update_game(secondary_character=character)
             return True
 

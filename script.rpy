@@ -39,7 +39,7 @@ image black = "#000"
 
 label end_day:
     $ day = latest_poll.get('day', 0)
-    if day >=3:
+    if day >=3 and character == 'human':
         # end game
         $ pass
     else:
@@ -47,7 +47,7 @@ label end_day:
 
 screen seance_screen:
     add "black"
-    timer 0.5 action [Function(poll), Function(renpy.restart_interaction)]
+    timer 0.5 action [Function(poll), Jump('end_day')]
     if latest_poll.get('seance_over', False):
         timer 0.000001 action [Jump('start_day')]
     # séance
@@ -75,15 +75,12 @@ label start_day:
     if character == 'human':
         $ update_game(seance_over=True)
     elif character == 'ghost':
-        $ update_game(day=latest_poll['day']+1)
-        $ update_game(seance_over=False)
+        $ update_game(day=latest_poll['day']+1, seance_over=False, energy=6)
 
     call screen start_day_screen
 
-
-
 screen start_day_screen():
-    add black
+    add 'black'
     if character == 'human':
         text "You end the seance and go to bed. The next day you wake up refreshed."
     else:
