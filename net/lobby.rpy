@@ -54,7 +54,7 @@ init python:
             elif data.get('character', None) == 'human':
                 character = 'ghost'
             data = {'secondary_character' : character}
-            requests.post(url+room, data=json.dumps(data))
+            update_game(secondary_character=character)
             return True
 
 
