@@ -10,9 +10,22 @@ init python:
     class HUD(object):
         def __init__(self):
             self.maxActions = 6
-            self.actions = self.maxActions
-            self.isDaytime = True
-            self.day = 0
+
+        @property
+        def actions(self):
+            global latest_poll
+            return latest_poll.get('energy', 0)
+
+        @property
+        def is_daytime(self):
+            global latest_poll
+            return latest_poll.get('is_daytime', True)
+
+        @property
+        def day(self):
+            global latest_poll
+            return latest_poll.get('day', 0)
+
 screen hud():
     frame:
         at hud_pos

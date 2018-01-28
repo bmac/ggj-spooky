@@ -75,9 +75,10 @@ screen room_screen(interactable=True):
                                Hide('mouseover'),
                                Hide('inventory'),
                                Jump('start_action')]
-                hovered [SetVariable('description', i.description),
-                         Show('mouseover')]
-                unhovered [Hide('mouseover')]
+                mousearea:
+                    hovered [SetVariable('description', i.description),
+                             Show('mouseover')]
+                    unhovered [Hide('mouseover')]
     # Should I tag this with an id for transfering state between scenes?
     if interactable:
         use hud

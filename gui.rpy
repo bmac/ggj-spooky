@@ -9,7 +9,7 @@ init offset = -2
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
 init python:
-    gui.init(1920, 1080)
+    gui.init(1980, 1020)
 
 
 
@@ -466,6 +466,3 @@ init python:
 
         gui.nvl_button_width = 1860
         gui.nvl_button_xpos = 30
-
-
-

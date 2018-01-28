@@ -9,7 +9,6 @@ init python:
     import json
 
     def process_data(data):
-        hud.actions = data.get('energy', hud.actions)
         if data.get('axe_taken', None):
             pass
         if data.get('secondary_character', None):
@@ -115,4 +114,4 @@ label not_connected:
 label connected:
     "Conneciton sucessful you are now ready to play the game."
     "You are playing as the [character]."
-    jump forest_scene
+    jump world_map
