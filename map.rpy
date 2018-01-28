@@ -3,7 +3,8 @@ label world_map:
 
 
 image world_map = im.Scale("images/map.png", 1980, 1020)
-
+image map_1_1 = "images/map_1_1/bg.png"
+image bad_ghost = "images/bad_ghost.png"
 define map_tile_x = 480
 define map_tile_y = 270
 
@@ -12,7 +13,7 @@ default map_0_3_room = Room("map_0_3", [RoomObject("river"),
 
 screen map_screen(interactable=True):
     if interactable:
-        timer 0.5 action [Function(poll), Jump("world_map")]
+        timer 0.5 action [Function(poll), Function(renpy.restart_interaction)]
     add "world_map"
     if interactable:
         imagemap:
@@ -58,66 +59,58 @@ label go_to_map(x, y):
     jump expression next
 
 label map_0_0:
-    show screen map_screen(interactable=False)
     "This part of the map is inaccessible."
     jump world_map
 
 label map_1_0:
-    show screen map_screen(interactable=False)
     "This part of the map is inaccessible."
     jump world_map
 
 label map_2_0:
-    show screen map_screen(interactable=False)
     "This part of the map is inaccessible."
     jump world_map
 
 label map_3_0:
-    show screen map_screen(interactable=False)
     "This part of the map is inaccessible."
     jump world_map
 
 
 
 label map_0_1:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_1_1:
-    show screen map_screen(interactable=False)
-    "This part of the map isn't implemented yet."
+    scene onlayer screens
+    show map_1_1
+    show bad_ghost:
+        zoom 0.5
+    "You got spooked!"
     jump world_map
 
 label map_2_1:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_3_1:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 
 
 label map_0_2:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_1_2:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_2_2:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_3_2:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
@@ -127,16 +120,13 @@ label map_0_3:
     jump room_loop
 
 label map_1_3:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_2_3:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
 
 label map_3_3:
-    show screen map_screen(interactable=False)
     "This part of the map isn't implemented yet."
     jump world_map
