@@ -35,9 +35,13 @@ init -1 python:
         def __init__(self, name, description=None, image=None, anchor=(0.5, 0.5), pos=(0.5, 0.5)):
             self.name = name
             self.description = description if description != None else name.replace('_', ' ')
-            self.image = image if image else 'images/' + "forest/" + self.name + ".png"
+
             self.anchor = anchor
             self.pos = pos
+
+        @property
+        def image(self):
+            return 'images/' + room.name +"/" + self.name + ".png"
 
 label call_room:
     call screen room_screen(interactable=True)
@@ -49,8 +53,10 @@ label room_loop:
 
 screen room_screen(interactable=True):
     if interactable:
+        # timer 0.5 action [Function(poll), Jump("call_room")]
         timer 0.5 action [Function(poll), Jump("call_room")]
-    add room.background
+    add room.background:
+        align (0.5, 0.5)
     for i in room.objects:
         imagebutton:
             idle i.image

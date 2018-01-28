@@ -61,7 +61,7 @@ screen inventory():
     frame:
         # The tab that hangs down part way while the inventory is hidden.
         # Copied from the container screen as a suuuuuuper lazy way to size them up.
-        at inventory_tab_hover
+        # at inventory_tab_hover
         background point_and_click_config['inventory']['container_bg']
         ypos -100
         xpos 0.5

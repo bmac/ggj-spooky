@@ -9,6 +9,9 @@ define map_tile_y = 270
 
 default ghost_position = "map_0_1"
 
+default map_0_3_room = Room("map_0_3", [RoomObject("river"),
+                                          RoomObject("road")])
+
 screen map_screen(interactable=True):
     if interactable:
         timer 0.5 action [Function(poll), Jump("world_map")]
@@ -121,9 +124,8 @@ label map_3_2:
 
 
 label map_0_3:
-    show screen map_screen(interactable=False)
-    "This part of the map isn't implemented yet."
-    jump world_map
+    $ room = map_0_3_room
+    jump room_loop
 
 label map_1_3:
     show screen map_screen(interactable=False)
