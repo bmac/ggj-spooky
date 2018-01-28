@@ -23,11 +23,8 @@ init python:
             process_data(data)
             latest_poll = data
 
-    def push():
-        data = {'axe_taken' : True}
-        requests.post(url+game_room_name, data=json.dumps(data))
-
     def update_game(**kwargs):
+        # Use a named store so we don't need to keep a local store and a copy of the server info
         global latest_poll
         latest_poll.update(kwargs)
         requests.post(url+game_room_name, data=json.dumps(latest_poll))

@@ -7,32 +7,53 @@ image world_map = im.Scale("images/map.png", 1920, 1080)
 define map_tile_x = 480
 define map_tile_y = 270
 
+default ghost_position = "map_0_1"
+
 screen map_screen(interactable=True):
-    timer 0.5 action [Function(poll), Jump("world_map")]
+    if interactable:
+        timer 0.5 action [Function(poll), Jump("world_map")]
     add "world_map"
     if interactable:
         imagemap:
             idle "world_map"
 
-            hotspot (map_tile_x*0, map_tile_y*0, map_tile_x, map_tile_y) action Jump("map_0_0")
-            hotspot (map_tile_x*1, map_tile_y*0, map_tile_x, map_tile_y) action Jump("map_1_0")
-            hotspot (map_tile_x*2, map_tile_y*0, map_tile_x, map_tile_y) action Jump("map_2_0")
-            hotspot (map_tile_x*3, map_tile_y*0, map_tile_x, map_tile_y) action Jump("map_3_0")
+            hotspot (map_tile_x*0, map_tile_y*0, map_tile_x, map_tile_y) action Call("go_to_map", x=0, y=0)
+            hotspot (map_tile_x*1, map_tile_y*0, map_tile_x, map_tile_y) action Call("go_to_map", x=1, y=0)
+            hotspot (map_tile_x*2, map_tile_y*0, map_tile_x, map_tile_y) action Call("go_to_map", x=2, y=0)
+            hotspot (map_tile_x*3, map_tile_y*0, map_tile_x, map_tile_y) action Call("go_to_map", x=3, y=0)
 
-            hotspot (map_tile_x*0, map_tile_y*1, map_tile_x, map_tile_y) action Jump("map_0_1")
-            hotspot (map_tile_x*1, map_tile_y*1, map_tile_x, map_tile_y) action Jump("map_1_1")
-            hotspot (map_tile_x*2, map_tile_y*1, map_tile_x, map_tile_y) action Jump("map_2_1")
-            hotspot (map_tile_x*3, map_tile_y*1, map_tile_x, map_tile_y) action Jump("map_3_1")
+            hotspot (map_tile_x*0, map_tile_y*1, map_tile_x, map_tile_y) action Call("go_to_map", x=0, y=1)
+            hotspot (map_tile_x*1, map_tile_y*1, map_tile_x, map_tile_y) action Call("go_to_map", x=1, y=1)
+            hotspot (map_tile_x*2, map_tile_y*1, map_tile_x, map_tile_y) action Call("go_to_map", x=2, y=1)
+            hotspot (map_tile_x*3, map_tile_y*1, map_tile_x, map_tile_y) action Call("go_to_map", x=3, y=1)
 
-            hotspot (map_tile_x*0, map_tile_y*2, map_tile_x, map_tile_y) action Jump("map_0_2")
-            hotspot (map_tile_x*1, map_tile_y*2, map_tile_x, map_tile_y) action Jump("map_1_2")
-            hotspot (map_tile_x*2, map_tile_y*2, map_tile_x, map_tile_y) action Jump("map_2_2")
-            hotspot (map_tile_x*3, map_tile_y*2, map_tile_x, map_tile_y) action Jump("map_3_2")
+            hotspot (map_tile_x*0, map_tile_y*2, map_tile_x, map_tile_y) action Call("go_to_map", x=0, y=2)
+            hotspot (map_tile_x*1, map_tile_y*2, map_tile_x, map_tile_y) action Call("go_to_map", x=1, y=2)
+            hotspot (map_tile_x*2, map_tile_y*2, map_tile_x, map_tile_y) action Call("go_to_map", x=2, y=2)
+            hotspot (map_tile_x*3, map_tile_y*2, map_tile_x, map_tile_y) action Call("go_to_map", x=3, y=2)
 
-            hotspot (map_tile_x*0, map_tile_y*3, map_tile_x, map_tile_y) action Jump("map_0_3")
-            hotspot (map_tile_x*1, map_tile_y*3, map_tile_x, map_tile_y) action Jump("map_1_3")
-            hotspot (map_tile_x*2, map_tile_y*3, map_tile_x, map_tile_y) action Jump("map_2_3")
-            hotspot (map_tile_x*3, map_tile_y*3, map_tile_x, map_tile_y) action Jump("map_3_3")
+            hotspot (map_tile_x*0, map_tile_y*3, map_tile_x, map_tile_y) action Call("go_to_map", x=0, y=3)
+            hotspot (map_tile_x*1, map_tile_y*3, map_tile_x, map_tile_y) action Call("go_to_map", x=1, y=3)
+            hotspot (map_tile_x*2, map_tile_y*3, map_tile_x, map_tile_y) action Call("go_to_map", x=2, y=3)
+            hotspot (map_tile_x*3, map_tile_y*3, map_tile_x, map_tile_y) action Call("go_to_map", x=3, y=3)
+
+    if character == 'human' and ghost_position.startswith("map_"):
+        $ (m, x, y) = ghost_position.split("_")
+        $ x = int(x)*map_tile_x + int(map_tile_x/2)
+        $ y = int(y)*map_tile_y + int(map_tile_y/2)
+        add "images/map_ghost.png":
+            pos (x, y)
+            anchor (0.5, 0.5)
+
+
+label go_to_map(x, y):
+    show screen map_screen(interactable=False)
+    $ next = "_".join(["map", str(x), str(y)])
+    if character == "ghost":
+        $ ghost_position = next
+    else:
+        $ human_position = next
+    jump expression next
 
 label map_0_0:
     show screen map_screen(interactable=False)
