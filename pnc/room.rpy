@@ -53,8 +53,7 @@ label room_loop:
 
 screen room_screen(interactable=True):
     if interactable:
-        # timer 0.5 action [Function(poll), Jump("call_room")]
-        timer 0.5 action [Function(poll), Jump("call_room")]
+        timer 0.5 action [Function(poll), Function(renpy.restart_interaction)]
     add room.background:
         align (0.5, 0.5)
     for i in room.objects:
@@ -80,7 +79,8 @@ screen room_screen(interactable=True):
                 focus_mask i.image
                 hovered [SetVariable('description', i.description),
                          Show('mouseover')]
-                unhovered [Hide('mouseover')]
+                unhovered [Hide('mouseover'),
+                           SetVariable('description', None)]
     # Should I tag this with an id for transfering state between scenes?
     if interactable:
         use hud

@@ -2,7 +2,7 @@ label world_map:
     call screen map_screen
 
 
-image world_map = im.Scale("images/map.png", 1920, 1080)
+image world_map = im.Scale("images/map.png", 1980, 1020)
 
 define map_tile_x = 480
 define map_tile_y = 270
