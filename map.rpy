@@ -84,8 +84,11 @@ label map_1_1:
     scene onlayer screens
     show map_1_1
     show bad_ghost:
+        align (0.5, 0.5)
         zoom 0.5
     "You got spooked!"
+    if character == 'human' and not latest_poll.get('seen_bad_ghost', False):
+        $ update_game(seen_bad_ghost=True, energy=latest_poll.get('energy', 6) - 1)
     jump world_map
 
 label map_2_1:

@@ -7,5 +7,6 @@
     day: <number>,
     ghost_position: '' | 'map_n_m',
     human_position: '' | 'map_n_m',
+    seen_bad_ghost: true|false
 }
 ```
