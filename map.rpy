@@ -146,7 +146,7 @@ label map_0_2_battery_interact:
     #     "...and the dust shadow from the gum I took. I wonder what it tastes like."
     if lamp_cave:
         "...aha! And an old portable generator, with a battery still inside. I think it might still have some juice."
-        # (Player gets battery)
+        $ s = inventory.add(Item('battery', "images/battery.png", look="A battery. Maybe for a lamp or something."))
 
     # else:
     #     "...and a pack of what I think used to be chewing gum."
