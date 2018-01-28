@@ -9,7 +9,6 @@ init python:
     import json
 
     def process_data(data):
-        hud.actions = data.get('energy', hud.actions)
         if data.get('axe_taken', None):
             pass
         if data.get('secondary_character', None):

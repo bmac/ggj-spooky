@@ -7,8 +7,6 @@ image world_map = im.Scale("images/map.png", 1920, 1080)
 define map_tile_x = 480
 define map_tile_y = 270
 
-default ghost_position = "map_0_1"
-
 screen map_screen(interactable=True):
     if interactable:
         timer 0.5 action [Function(poll), Jump("world_map")]
@@ -37,6 +35,7 @@ screen map_screen(interactable=True):
             hotspot (map_tile_x*2, map_tile_y*3, map_tile_x, map_tile_y) action Call("go_to_map", x=2, y=3)
             hotspot (map_tile_x*3, map_tile_y*3, map_tile_x, map_tile_y) action Call("go_to_map", x=3, y=3)
 
+    $ ghost_position = latest_poll.get('ghost_position', '')
     if character == 'human' and ghost_position.startswith("map_"):
         $ (m, x, y) = ghost_position.split("_")
         $ x = int(x)*map_tile_x + int(map_tile_x/2)
@@ -50,9 +49,9 @@ label go_to_map(x, y):
     show screen map_screen(interactable=False)
     $ next = "_".join(["map", str(x), str(y)])
     if character == "ghost":
-        $ ghost_position = next
+        $ update_game(ghost_position = next)
     else:
-        $ human_position = next
+        $ update_game(human_position = next)
     jump expression next
 
 label map_0_0:
