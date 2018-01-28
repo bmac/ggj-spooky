@@ -68,9 +68,6 @@ screen room_screen(interactable=True):
                         Hide('mouseover'),
                         Hide('inventory'),
                         Jump('start_action')]
-        if interactable:
-            mousearea:
-                focus_mask i.image
                 hovered [SetVariable('description', i.description),
                          Show('mouseover')]
                 unhovered [Hide('mouseover'),
