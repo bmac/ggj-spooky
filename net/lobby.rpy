@@ -2,25 +2,16 @@ default character = ""
 default game_room_name = "foo"
 define url = 'http://18.218.226.41/game/'
 default latest_poll = {}
-default started = False
 
 init python:
     import requests
     import json
-
-    def process_data(data):
-        if data.get('axe_taken', None):
-            pass
-        if data.get('secondary_character', None):
-            global started
-            started = True
 
     def poll():
         global latest_poll
 
         data = requests.get(url+game_room_name).json()
         if data != latest_poll:
-            process_data(data)
             latest_poll = data
 
     def update_game(**kwargs):
@@ -97,7 +88,7 @@ label request_new_room:
     jump wait_to_start
 
 label wait_to_start:
-    if started:
+    if latest_poll.get('secondary_character', None):
         jump connected
     else:
         call screen wait_to_start
@@ -121,6 +112,9 @@ label not_connected:
     return
 
 label connected:
-    "Conneciton sucessful you are now ready to play the game."
-    "You are playing as the [character]."
-    jump world_map
+    call screen connected_screen
+
+screen connected_screen():
+    timer 0.5 action Jump('end_day')
+    add "black"
+    text "Conneciton sucessful you are now ready to play the game.\n You are playing as the "+character+"."

@@ -47,6 +47,11 @@ screen map_screen(interactable=True):
         add "images/map_ghost.png":
             pos (x, y)
             anchor (0.5, 0.5)
+    if interactable:
+        frame:
+            align (1.0, 0.0)
+            textbutton "end day":
+                action Jump("end_day")
 
 
 label go_to_map(x, y):

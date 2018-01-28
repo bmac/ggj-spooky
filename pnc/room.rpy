@@ -79,3 +79,7 @@ screen room_screen(interactable=True):
     if interactable:
         use hud
         use inventory
+        frame:
+            align (1.0, 1.0)
+            textbutton "back to map":
+                action Jump("world_map")

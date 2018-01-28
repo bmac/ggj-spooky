@@ -35,6 +35,61 @@ init:
                                           RoomObject("letter",
                                                      pos=(400, 400))])
 
+image black = "#000"
+
+label end_day:
+    $ day = latest_poll.get('day', 0)
+    if day >=3:
+        # end game
+        $ pass
+    else:
+        call screen seance_screen
+
+screen seance_screen:
+    add "black"
+    timer 0.5 action [Function(poll), Function(renpy.restart_interaction)]
+    if latest_poll.get('seance_over', False):
+        timer 0.000001 action [Jump('start_day')]
+    # séance
+    $ energy = latest_poll.get('energy', 0)
+    if character == "human":
+        if energy is 0:
+            text "You wanted to hold a seance, but you are too tired."
+        else:
+            text "You are holding a seance."
+
+        frame:
+            align (0.5, 0.5)
+            textbutton "end seance":
+                action Jump('start_day')
+    else:
+        if energy is 0:
+            text "You waited all night for someone to reach out to you through a seance, but no one did."
+        elif energy is 1:
+            text "Someone is holding a seance and trying to talk to you.\n Show them a single card."
+        else:
+            text "Someone is holding a seance and trying to talk to you.\n Show them up to "+str(energy)+" cards."
+
+label start_day:
+    $ poll()
+    if character == 'human':
+        $ update_game(seance_over=True)
+    elif character == 'ghost':
+        $ update_game(day=latest_poll['day']+1)
+        $ update_game(seance_over=False)
+
+    call screen start_day_screen
+
+
+
+screen start_day_screen():
+    add black
+    if character == 'human':
+        text "You end the seance and go to bed. The next day you wake up refreshed."
+    else:
+        text "The seance ends and you take a spooky map. You wake up spooky and refreshed."
+    timer 2.0 action Jump('world_map')
+
 label forest_scene:
     $ room = forest_room
     jump room_loop
@@ -45,9 +100,9 @@ label start:
     $ inventory = Inventory()
     $ hud = HUD()
     # join screen
-    jump world_map
-    jump forest_scene
-    # jump lobby
+    # jump world_map
+    # jump forest_scene
+    jump lobby
 
 label intro:
     scene bg yard
