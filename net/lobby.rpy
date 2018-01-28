@@ -114,4 +114,4 @@ label not_connected:
 label connected:
     "Conneciton sucessful you are now ready to play the game."
     "You are playing as the [character]."
-    jump forest_scene
+    jump world_map
