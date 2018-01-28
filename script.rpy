@@ -74,7 +74,7 @@ label forest_axe_look:
     if character == 'human':
         "Hmm, a rust axe...wait is that rust or BLOOD?!"
     else:
-        "I am a spooky ghost and that is a spooky axe."x
+        "I am a spooky ghost and that is a spooky axe."
     return
 
 label forest_axe_interact:

@@ -48,7 +48,7 @@ label room_loop:
     jump call_room
 
 screen room_screen(interactable=True):
-    timer 0.5 [Function(poll), Jump("call_room")]
+    timer 0.5 action [Function(poll), Jump("call_room")]
     add room.background
     for i in room.objects:
         imagebutton:
