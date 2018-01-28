@@ -138,20 +138,26 @@ label map_0_2_scene:
     jump room_loop
 
 label map_0_2_battery_interact:
-    "This looks like an outpost for carrying out maintenance on the power lines."
-    "There's usually good stuff in places like these."
-    play sound "music/drawers.mp3"
-    "In the drawer there's an empty flare gun, an old matchbox, some bandages and rubbing alcohol..."
-    # if gum:
-    #     "...and the dust shadow from the gum I took. I wonder what it tastes like."
-    if lamp_cave:
+    if character == 'human':
+        "This looks like an outpost for carrying out maintenance on the power lines."
+        "There's usually good stuff in places like these."
+        play sound "music/drawers.mp3"
+        "In the drawer there's an empty flare gun, an old matchbox, some bandages and rubbing alcohol..."
+        # if gum:
+        #     "...and the dust shadow from the gum I took. I wonder what it tastes like."
+        # if lamp_cave:
         "...aha! And an old portable generator, with a battery still inside. I think it might still have some juice."
         $ s = inventory.add(Item('battery', "images/battery.png", look="A battery. Maybe for a lamp or something."))
 
-    # else:
-    #     "...and a pack of what I think used to be chewing gum."
-    #     "I pocket the gum. Maybe I'll try it later."
-    #     $ gum = True
+        # else:
+        #     "...and a pack of what I think used to be chewing gum."
+        #     "I pocket the gum. Maybe I'll try it later."
+        #     $ gum = True
+    else:
+        g "My electrical senses are tingling. I forgot I had those."
+        g "A working battery? In that power station?"
+        g "We could probably find a use for it..."
+    return
 
 label map_1_2_scene:
     "This part of the map isn't implemented yet."
