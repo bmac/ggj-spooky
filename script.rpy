@@ -40,6 +40,7 @@ label forest_scene:
     jump room_loop
 
 label start:
+    play music "music/night_theme.mp3"
     # $ dialogue_box["dog"] = {'x':0.35, 'y':180}
     $ inventory = Inventory()
     $ hud = HUD()
